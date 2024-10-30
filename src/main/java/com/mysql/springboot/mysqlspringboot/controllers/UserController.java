@@ -11,14 +11,14 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
     // Create a new user
-    @PostMapping
+    @PostMapping("createUser")
     public ResponseEntity<Map<String, Object>> createUser(@RequestBody User user) {
         User savedUser = userService.createUser(user);
         Map<String, Object> response = new HashMap<>();
@@ -28,7 +28,7 @@ public class UserController {
     }
 
     // Get all users
-    @GetMapping
+    @GetMapping("getUsers")
     public ResponseEntity<Map<String, Object>> getAllUsers() {
         List<User> users = userService.getAllUsers();
         Map<String, Object> response = new HashMap<>();
@@ -38,7 +38,7 @@ public class UserController {
     }
 
     // Get user by ID
-    @GetMapping("/{id}")
+    @GetMapping("/getUser/{id}")
     public ResponseEntity<Map<String, Object>> getUserById(@PathVariable Long id) {
         Optional<User> user = userService.getUserById(id);
         Map<String, Object> response = new HashMap<>();
@@ -53,7 +53,7 @@ public class UserController {
     }
 
     // Update a user by ID
-    @PutMapping("/{id}")
+    @PutMapping("/editUser/{id}")
     public ResponseEntity<Map<String, Object>> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
         User updatedUser = userService.updateUser(id, userDetails);
         Map<String, Object> response = new HashMap<>();
@@ -68,7 +68,7 @@ public class UserController {
     }
 
     // Delete a user by ID
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deleteUser/{id}")
     public ResponseEntity<Map<String, String>> deleteUser(@PathVariable Long id) {
         boolean deleted = userService.deleteUser(id);
         Map<String, String> response = new HashMap<>();
